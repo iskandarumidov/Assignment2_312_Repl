@@ -2,10 +2,11 @@
 #define MATRIX_H
 
 class Matrix {
-  int m, n;
-  int *arr;
+
 
 public:
+  int m, n;
+  int *arr;
   Matrix();
   Matrix(int m, int n);
 
