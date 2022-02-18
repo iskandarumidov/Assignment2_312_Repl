@@ -1,8 +1,12 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-class Matrix {
+#include <iostream>
+#include <fstream>
 
+using namespace std;
+
+class Matrix {
 
 public:
   int m, n;
@@ -14,10 +18,12 @@ public:
   void print_matrix();
   void read_matrix();
 
-  //   void set_values(int, int);
-  //   int area() { return width * height; }
-
   Matrix operator+(const Matrix &otherMatrix);
+  
+  friend ostream &operator<<(ostream &output, const Matrix &m) {
+    output << "M : " << m.m << " N : " << m.n;
+    return output;
+  }
 };
 
 #endif

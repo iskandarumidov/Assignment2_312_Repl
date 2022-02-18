@@ -27,37 +27,22 @@ int main() {
   // FORK STUFF - ADDING MATRICES
   int pid;
   int status;
-  // int fd[2];
-
-  // pipe(fd);
 
   printf("---PARENT ID---: %d\n", getpid());
-
-  // write(fd[1], &(m1.m), sizeof(int));
-  // write(fd[1], &(m1.n), sizeof(int));
-
-  // for (int i = 0; i < m1.m; i++) {
-  //   for (int j = 0; j < m1.n; j++) {
-  //     write(fd[1], &(*(m1.arr + i * m1.n + j)), sizeof(int));
-  //     // cout << *(arr + i * n + j) << " ";
-  //   }
-  //   cout << "\n";
-  // }
-
-  // close(fd[1]);
 
   pid = fork();
   if (pid == 0) {
     int m, n;
-    // read(fd[0], &m, sizeof(int));
-    // read(fd[0], &n, sizeof(int));
     printf("---CHILD ID---: %d\n", getpid());
-    printf("Printing matrix m1 M\n");
-    cout << m1.m << endl;
+    // printf("Printing matrix m1 M\n");
+    Matrix mRes = m1 + m2;
+    mRes.print_matrix();
+    // cout << m << endl;
 
     ofstream myfile;
     myfile.open("example.txt");
-    myfile << "MATRIX: " << m << n << "\n";
+    // myfile << "MATRIX: " << m << n << "\n";
+    myfile << "MATRIX: " << mRes << "\n";
     myfile.close();
 
     printf("---CHILD ENDING---\n");

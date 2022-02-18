@@ -1,5 +1,6 @@
 #include "matrix.h"
-#include <iostream>
+// #include <iostream>
+// #include <fstream>
 using namespace std;
 
 Matrix::Matrix() {
@@ -40,8 +41,8 @@ void Matrix::read_matrix() {
 
 Matrix Matrix::operator+(const Matrix &otherMatrix) {
   Matrix newMatrix(this->m, this->n);
-  int* newMatrixArr = newMatrix.arr;
-  int* otherMatrixArr = otherMatrix.arr;
+  int *newMatrixArr = newMatrix.arr;
+  int *otherMatrixArr = otherMatrix.arr;
 
   if (this->m != otherMatrix.m | this->n != otherMatrix.n) {
     cout << "MATRICES HAVE DIFFERENT DIMENSIONS" << endl;
@@ -50,9 +51,21 @@ Matrix Matrix::operator+(const Matrix &otherMatrix) {
 
   for (int i = 0; i < this->m; i++) {
     for (int j = 0; j < this->n; j++) {
-      *(newMatrixArr + i * n + j) = *(arr + i * n + j) + *(otherMatrixArr + i * n + j);      
+      *(newMatrixArr + i * n + j) =
+          *(arr + i * n + j) + *(otherMatrixArr + i * n + j);
     }
   }
 
   return newMatrix;
 }
+
+// friend ostream &operator<<(ostream &output, const Matrix &m) {
+//   output << "M : " << m.m << " N : " << m.n;
+//   return output;
+// }
+// void Matrix::operator<<(const Matrix &otherMatrix) {
+//   ofstream myfile;
+//   myfile.open("example.txt");
+//   myfile << "MATRIX: " << m << n << "\n";
+//   myfile.close();
+// }
