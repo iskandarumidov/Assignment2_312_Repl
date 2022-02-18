@@ -14,10 +14,6 @@ public:
   Matrix();
   Matrix(int m, int n);
 
-  void print_dimensions();
-  void print_matrix();
-  void read_matrix();
-
   Matrix operator+(const Matrix &otherMatrix);
 
   friend ostream &operator<<(ostream &output, const Matrix &m) {
