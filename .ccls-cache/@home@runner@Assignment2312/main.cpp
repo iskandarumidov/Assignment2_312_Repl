@@ -13,14 +13,21 @@
 using namespace std;
 
 int main() {
+  cout << "Please enter M1, then N1 on one line" << endl;
+  cout << "After that, enter the matrix" << endl;
   Matrix m1;
-  m1.print_dimensions();
+  cin >> m1;
+  // m1.print_dimensions();
 
-  m1.read_matrix();
-  m1.print_matrix();
+  // m1.read_matrix();
+  // m1.print_matrix();
   // Matrix m2(3,2);
+
+  cout << "Please enter M2, then N2 on one line" << endl;
+  cout << "After that, enter the matrix" << endl;
   Matrix m2;
-  m2.read_matrix();
+  cin >> m2;
+  // m2.read_matrix();
   // Matrix mRes = m1 + m2;
   // mRes.print_matrix();
 
@@ -34,15 +41,12 @@ int main() {
   if (pid == 0) {
     int m, n;
     printf("---CHILD ID---: %d\n", getpid());
-    // printf("Printing matrix m1 M\n");
     Matrix mRes = m1 + m2;
     mRes.print_matrix();
-    // cout << m << endl;
 
     ofstream myfile;
-    myfile.open("example.txt");
-    // myfile << "MATRIX: " << m << n << "\n";
-    myfile << "MATRIX: " << mRes << "\n";
+    myfile.open("add.out");
+    myfile << mRes;
     myfile.close();
 
     printf("---CHILD ENDING---\n");
