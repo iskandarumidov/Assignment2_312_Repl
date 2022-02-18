@@ -14,6 +14,10 @@ public:
   Matrix();
   Matrix(int m, int n);
 
+  // static void print_instructions();
+
+  // static void print_example();
+
   Matrix operator+(const Matrix &otherMatrix);
 
   friend ostream &operator<<(ostream &output, const Matrix &m) {

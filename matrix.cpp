@@ -13,6 +13,15 @@ Matrix::Matrix(int m, int n) {
   this->arr = new int[m * n];
 }
 
+//  void Matrix::print_example() {
+//   cout << "e.g." << endl;
+//   cout << "3 2" << endl;
+//   cout << "1 1" << endl;
+//   cout << "1 1" << endl;
+//   cout << "1 1" << endl;
+//   cout << endl;
+// }
+
 Matrix Matrix::operator+(const Matrix &otherMatrix) {
   Matrix newMatrix(this->m, this->n);
   int *newMatrixArr = newMatrix.arr;
