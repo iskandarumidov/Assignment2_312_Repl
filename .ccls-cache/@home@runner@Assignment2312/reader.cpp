@@ -22,9 +22,21 @@ int main() {
     myfile.close();
   } else
     cout << "Unable to open file";
-  cout << "READER READ THIS FROM FILE:" << endl;
+  cout << "ADDED FROM FILE:" << endl;
+  cout << mRead;
+
+  ifstream myfile2("sub.out");
+  if (myfile2.is_open()) {
+    myfile2 >> mRead;
+    myfile2.close();
+  } else
+    cout << "Unable to open file";
+  cout << "SUBTRACTED FROM FILE:" << endl;
   cout << mRead;
 
   printf("---READER CHILD ENDING---\n");
+  exit(0);
   return 0;
 }
+
+// g++ reader.cpp matrix.cpp -o reader.out

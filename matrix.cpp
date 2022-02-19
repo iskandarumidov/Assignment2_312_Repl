@@ -28,7 +28,48 @@ Matrix Matrix::operator+(const Matrix &otherMatrix) {
   int *otherMatrixArr = otherMatrix.arr;
 
   if (this->m != otherMatrix.m | this->n != otherMatrix.n) {
-    cout << "MATRICES HAVE DIFFERENT DIMENSIONS" << endl;
+    cout << "MATRICES HAVE DIFFERENT DIMENSIONS FOR ADDITION" << endl;
+    exit(0);
+  }
+
+  for (int i = 0; i < this->m; i++) {
+    for (int j = 0; j < this->n; j++) {
+      *(newMatrixArr + i * n + j) =
+          *(arr + i * n + j) + *(otherMatrixArr + i * n + j);
+    }
+  }
+
+  return newMatrix;
+}
+
+Matrix Matrix::operator-(const Matrix &otherMatrix) {
+  Matrix newMatrix(this->m, this->n);
+  int *newMatrixArr = newMatrix.arr;
+  int *otherMatrixArr = otherMatrix.arr;
+
+  if (this->m != otherMatrix.m | this->n != otherMatrix.n) {
+    cout << "MATRICES HAVE DIFFERENT DIMENSIONS FOR SUBTRACTION" << endl;
+    exit(0);
+  }
+
+  for (int i = 0; i < this->m; i++) {
+    for (int j = 0; j < this->n; j++) {
+      *(newMatrixArr + i * n + j) =
+          *(arr + i * n + j) - *(otherMatrixArr + i * n + j);
+    }
+  }
+
+  return newMatrix;
+}
+
+Matrix Matrix::operator*(const Matrix &otherMatrix) {
+  Matrix newMatrix(this->m, this->n);
+  int *newMatrixArr = newMatrix.arr;
+  int *otherMatrixArr = otherMatrix.arr;
+
+  //MODIFY THIS TODO
+  if (this->m != otherMatrix.m | this->n != otherMatrix.n) {
+    cout << "MATRICES HAVE INVALID DIMENSIONS FOR MULTIPLICATION" << endl;
     exit(0);
   }
 

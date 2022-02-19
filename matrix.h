@@ -19,6 +19,8 @@ public:
   // static void print_example();
 
   Matrix operator+(const Matrix &otherMatrix);
+  Matrix operator-(const Matrix &otherMatrix);
+  Matrix operator*(const Matrix &otherMatrix);
 
   friend ostream &operator<<(ostream &output, const Matrix &m) {
     output << m.m << " " << m.n << endl;

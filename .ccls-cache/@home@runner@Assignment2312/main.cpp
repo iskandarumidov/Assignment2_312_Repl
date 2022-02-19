@@ -24,6 +24,8 @@ void print_example() {
   cout << "1 1" << endl;
   cout << endl;
 }
+
+
 int main() {
   print_instructions();
   print_example();
@@ -35,7 +37,7 @@ int main() {
   cin >> m2;
 
   // FORK STUFF - ADDING MATRICES
-  int pid, status;
+  int pid, status, pid2, status2, pid3, status3;
 
   printf("---PARENT ID---: %d\n", getpid());
 
@@ -53,29 +55,33 @@ int main() {
     printf("---ADDER CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
-
-  // Comment from here to...
-  // Parent waits process pid (child)
   waitpid(pid, &status, 0);
+
+  pid2 = fork();
+  if (pid2 == 0) {
+    int m, n;
+    printf("---SUBTRACTOR CHILD ID---: %d\n", getpid());
+    Matrix mRes = m1 - m2;
+
+    ofstream myfile;
+    myfile.open("sub.out");
+    myfile << mRes;
+    myfile.close();
+
+    printf("---ADDER CHILD ENDING---\n");
+    exit(EXIT_SUCCESS);
+  }
+  waitpid(pid2, &status2, 0);
+
+
 
   pid = fork();
   if (pid == 0) {
-    int m, n;
-    printf("---READER CHILD ID---: %d\n", getpid());
-    Matrix mRead;
-
-    ifstream myfile("add.out");
-    if (myfile.is_open()) {
-      myfile >> mRead;
-      myfile.close();
-    } else
-      cout << "Unable to open file";
-    cout << "READER READ THIS FROM FILE:" << endl;
-    cout << mRead;
-
-    printf("---READER CHILD ENDING---\n");
-    exit(EXIT_SUCCESS);
+    char *argv[3] = {NULL};
+    execv("reader.out", argv);
   }
+
+  waitpid(pid, &status, 0);
 
   printf("---PARENT ENDING---\n");
   return 0;
