@@ -17,11 +17,13 @@ int main()
   Matrix m1;
   Matrix m2;
 
+  // Flag to avoid invalid input
   int isInvalidInput = 1;
   while (isInvalidInput)
   {
     Matrix::print_instructions();
     Matrix::print_example();
+    // Since I overloaded the >> operator in the matrix class, I can use this syntax
     cin >> m1;
 
     Matrix::print_instructions();
@@ -40,7 +42,7 @@ int main()
     }
   }
 
-  // FORK STUFF - ADDING MATRICES
+  // This is required to keep track of children
   int pidAdd, pidSub, pidMult, pidReader, statusAdd, statusSub, statusMult, statusReader;
 
   printf("---PARENT ID---: %d\n", getpid());
@@ -51,16 +53,19 @@ int main()
   {
     int m, n;
     printf("---ADDER CHILD ID---: %d\n", getpid());
+    // Since I overloaded the plus operator in the matrix class, I can use this syntax
     Matrix mRes = m1 + m2;
 
     ofstream myfile;
     myfile.open("./out/add.out");
+    // Since I overloaded the << operator in the matrix class, I can use this syntax
     myfile << mRes;
     myfile.close();
 
     printf("---ADDER CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
+  // Parent waits for the adder child to finish
   waitpid(pidAdd, &statusAdd, 0);
 
   // Fork to calculate subtraction and write to sub.out
@@ -69,6 +74,7 @@ int main()
   {
     int m, n;
     printf("---SUBTRACTOR CHILD ID---: %d\n", getpid());
+    // Since I overloaded the minus operator in the matrix class, I can use this syntax
     Matrix mRes = m1 - m2;
 
     ofstream myfile;
@@ -79,6 +85,7 @@ int main()
     printf("---SUBTRACTOR CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
+  // Parent waits for the subtractor child to finish
   waitpid(pidSub, &statusSub, 0);
 
   // Fork to calculate multiplication and write to mult.out
@@ -87,6 +94,7 @@ int main()
   {
     int m, n;
     printf("---MULTIPLICATOR CHILD ID---: %d\n", getpid());
+    // Since I overloaded the multiply operator in the matrix class, I can use this syntax
     Matrix mRes = m1 * m2;
 
     ofstream myfile;
@@ -97,6 +105,7 @@ int main()
     printf("---MULTIPLICATOR CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
+  // Parent waits for the multiplier child to finish
   waitpid(pidMult, &statusMult, 0);
 
   // Fork to read addition, subtraction and multiplication from files
@@ -109,6 +118,7 @@ int main()
     printf("---READER CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
+  // Parent waits for the reader to finish
   waitpid(pidReader, &statusReader, 0);
 
   printf("---PARENT ENDING---\n");

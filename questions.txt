@@ -4,3 +4,4 @@
 #question - organized and clean output
 #question - not exhaustive validation
 #question - Submit only two source code programs - what about makefile, header and cpp impl of matrix?
+#question - ok to keep printfs saying who is being executed?

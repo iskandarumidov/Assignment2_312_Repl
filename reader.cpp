@@ -16,7 +16,7 @@ int main()
 {
   printf("---READER CHILD ID---: %d\n", getpid());
   Matrix mRead;
-
+  // Addition
   ifstream myfile("./out/add.out");
   if (myfile.is_open())
   {
@@ -28,6 +28,7 @@ int main()
   cout << "ADDED FROM FILE:" << endl;
   cout << mRead;
 
+  // Subtraction
   ifstream myfile2("./out/sub.out");
   if (myfile2.is_open())
   {
@@ -39,6 +40,7 @@ int main()
   cout << "SUBTRACTED FROM FILE:" << endl;
   cout << mRead;
 
+  // Multiplication
   ifstream myfile3("./out/mult.out");
   if (myfile3.is_open())
   {
