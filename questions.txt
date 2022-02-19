@@ -1,7 +1,4 @@
 #todo: check if waitpid is properly working
-#todo: makefile and output into proper folders
-
-
 
 
 #question - organized and clean output
