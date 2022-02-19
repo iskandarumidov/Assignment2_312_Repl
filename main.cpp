@@ -12,12 +12,14 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   Matrix m1;
   Matrix m2;
 
   int isInvalidInput = 1;
-  while (isInvalidInput) {
+  while (isInvalidInput)
+  {
     Matrix::print_instructions();
     Matrix::print_example();
     cin >> m1;
@@ -28,9 +30,12 @@ int main() {
     // For multiplication, rows of first need to == cols of second
     // But they still will have to be square matrices because of addition
     // Also - need to check if values are positive
-    if ((m1.m == m1.n) & (m2.m == m2.n) & (m1.m == m2.m) & (m1.m > 0 & m1.n > 0 & m2.m > 0 & m2.n > 0)){
+    if ((m1.m == m1.n) & (m2.m == m2.n) & (m1.m == m2.m) & (m1.m > 0 & m1.n > 0 & m2.m > 0 & m2.n > 0))
+    {
       isInvalidInput = 0;
-    }else{
+    }
+    else
+    {
       cout << "INVALID INPUT" << endl;
     }
   }
@@ -42,13 +47,14 @@ int main() {
 
   // Fork to calculate addition and write to add.out
   pidAdd = fork();
-  if (pidAdd == 0) {
+  if (pidAdd == 0)
+  {
     int m, n;
     printf("---ADDER CHILD ID---: %d\n", getpid());
     Matrix mRes = m1 + m2;
 
     ofstream myfile;
-    myfile.open("add.out");
+    myfile.open("./out/add.out");
     myfile << mRes;
     myfile.close();
 
@@ -59,13 +65,14 @@ int main() {
 
   // Fork to calculate subtraction and write to sub.out
   pidSub = fork();
-  if (pidSub == 0) {
+  if (pidSub == 0)
+  {
     int m, n;
     printf("---SUBTRACTOR CHILD ID---: %d\n", getpid());
     Matrix mRes = m1 - m2;
 
     ofstream myfile;
-    myfile.open("sub.out");
+    myfile.open("./out/sub.out");
     myfile << mRes;
     myfile.close();
 
@@ -76,13 +83,14 @@ int main() {
 
   // Fork to calculate multiplication and write to mult.out
   pidMult = fork();
-  if (pidMult == 0) {
+  if (pidMult == 0)
+  {
     int m, n;
     printf("---MULTIPLICATOR CHILD ID---: %d\n", getpid());
     Matrix mRes = m1 * m2;
 
     ofstream myfile;
-    myfile.open("mult.out");
+    myfile.open("./out/mult.out");
     myfile << mRes;
     myfile.close();
 
@@ -93,9 +101,13 @@ int main() {
 
   // Fork to read addition, subtraction and multiplication from files
   pidReader = fork();
-  if (pidReader == 0) {
+  if (pidReader == 0)
+  {
+    printf("---READER CHILD ID---: %d\n", getpid());
     char *argv[3] = {NULL};
-    execv("reader.out", argv);
+    execv("./out/reader.out", argv);
+    printf("---READER CHILD ENDING---\n");
+    exit(EXIT_SUCCESS);
   }
   waitpid(pidReader, &statusReader, 0);
 

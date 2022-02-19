@@ -1,0 +1,8 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/student/Desktop/312/Assignment2_312_Repl'
+g++ -c matrix.cpp -o ./out/matrix.o
+g++ reader.cpp matrix.cpp -o ./out/reader.out
+ 
+g++ main.cpp ./out/matrix.o -o ./out/a.out
+make: Leaving directory `/Users/student/Desktop/312/Assignment2_312_Repl'
+ 

@@ -12,33 +12,40 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   printf("---READER CHILD ID---: %d\n", getpid());
   Matrix mRead;
 
-  ifstream myfile("add.out");
-  if (myfile.is_open()) {
+  ifstream myfile("./out/add.out");
+  if (myfile.is_open())
+  {
     myfile >> mRead;
     myfile.close();
-  } else
+  }
+  else
     cout << "Unable to read add.out";
   cout << "ADDED FROM FILE:" << endl;
   cout << mRead;
 
-  ifstream myfile2("sub.out");
-  if (myfile2.is_open()) {
+  ifstream myfile2("./out/sub.out");
+  if (myfile2.is_open())
+  {
     myfile2 >> mRead;
     myfile2.close();
-  } else
+  }
+  else
     cout << "Unable to read sub.out";
   cout << "SUBTRACTED FROM FILE:" << endl;
   cout << mRead;
 
-  ifstream myfile3("mult.out");
-  if (myfile3.is_open()) {
+  ifstream myfile3("./out/mult.out");
+  if (myfile3.is_open())
+  {
     myfile3 >> mRead;
     myfile3.close();
-  } else
+  }
+  else
     cout << "Unable to read mult.out";
   cout << "MULTIPLIED FROM FILE:" << endl;
   cout << mRead;
