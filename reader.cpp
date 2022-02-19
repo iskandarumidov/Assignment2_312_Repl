@@ -21,7 +21,7 @@ int main() {
     myfile >> mRead;
     myfile.close();
   } else
-    cout << "Unable to open file";
+    cout << "Unable to read add.out";
   cout << "ADDED FROM FILE:" << endl;
   cout << mRead;
 
@@ -30,8 +30,17 @@ int main() {
     myfile2 >> mRead;
     myfile2.close();
   } else
-    cout << "Unable to open file";
+    cout << "Unable to read sub.out";
   cout << "SUBTRACTED FROM FILE:" << endl;
+  cout << mRead;
+
+  ifstream myfile3("mult.out");
+  if (myfile3.is_open()) {
+    myfile3 >> mRead;
+    myfile3.close();
+  } else
+    cout << "Unable to read mult.out";
+  cout << "MULTIPLIED FROM FILE:" << endl;
   cout << mRead;
 
   printf("---READER CHILD ENDING---\n");

@@ -25,16 +25,27 @@ void print_example() {
   cout << endl;
 }
 
-
 int main() {
-  print_instructions();
-  print_example();
   Matrix m1;
-  cin >> m1;
-
-  print_instructions();
   Matrix m2;
-  cin >> m2;
+  // TODO
+  int isInvalidInput = 1;
+  while (isInvalidInput) {
+    print_instructions();
+    print_example();
+    cin >> m1;
+
+    print_instructions();
+    cin >> m2;
+    // Both matrices need to be square for addition and subtraction to work
+    // For multiplication, rows of first need to == cols of second
+    // But they still will have to be square matrices because of addition
+    if ((m1.m == m1.n) & (m2.m == m2.n) & (m1.m == m2.m) & (m1.m > 0 & m1.n > 0 & m2.m > 0 & m2.n > 0)){
+      isInvalidInput = 0;
+    }else{
+      cout << "INVALID INPUT" << endl;
+    }
+  }
 
   // FORK STUFF - ADDING MATRICES
   int pid, status, pid2, status2, pid3, status3;
@@ -68,12 +79,26 @@ int main() {
     myfile << mRes;
     myfile.close();
 
-    printf("---ADDER CHILD ENDING---\n");
+    printf("---SUBTRACTOR CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
   waitpid(pid2, &status2, 0);
 
+  pid3 = fork();
+  if (pid3 == 0) {
+    int m, n;
+    printf("---MULTIPLICATOR CHILD ID---: %d\n", getpid());
+    Matrix mRes = m1 * m2;
 
+    ofstream myfile;
+    myfile.open("mult.out");
+    myfile << mRes;
+    myfile.close();
+
+    printf("---MULTIPLICATOR CHILD ENDING---\n");
+    exit(EXIT_SUCCESS);
+  }
+  waitpid(pid3, &status3, 0);
 
   pid = fork();
   if (pid == 0) {
