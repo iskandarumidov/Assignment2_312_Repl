@@ -11,35 +11,23 @@
 #include <stdio.h>
 
 using namespace std;
-void print_instructions() {
-  cout << "Please enter M, then N on one line" << endl;
-  cout << "After that, enter the matrix" << endl;
-}
-
-void print_example() {
-  cout << "e.g." << endl;
-  cout << "3 2" << endl;
-  cout << "1 1" << endl;
-  cout << "1 1" << endl;
-  cout << "1 1" << endl;
-  cout << endl;
-}
 
 int main() {
   Matrix m1;
   Matrix m2;
-  // TODO
+
   int isInvalidInput = 1;
   while (isInvalidInput) {
-    print_instructions();
-    print_example();
+    Matrix::print_instructions();
+    Matrix::print_example();
     cin >> m1;
 
-    print_instructions();
+    Matrix::print_instructions();
     cin >> m2;
     // Both matrices need to be square for addition and subtraction to work
     // For multiplication, rows of first need to == cols of second
     // But they still will have to be square matrices because of addition
+    // Also - need to check if values are positive
     if ((m1.m == m1.n) & (m2.m == m2.n) & (m1.m == m2.m) & (m1.m > 0 & m1.n > 0 & m2.m > 0 & m2.n > 0)){
       isInvalidInput = 0;
     }else{
@@ -48,12 +36,13 @@ int main() {
   }
 
   // FORK STUFF - ADDING MATRICES
-  int pid, status, pid2, status2, pid3, status3;
+  int pidAdd, pidSub, pidMult, pidReader, statusAdd, statusSub, statusMult, statusReader;
 
   printf("---PARENT ID---: %d\n", getpid());
 
-  pid = fork();
-  if (pid == 0) {
+  // Fork to calculate addition and write to add.out
+  pidAdd = fork();
+  if (pidAdd == 0) {
     int m, n;
     printf("---ADDER CHILD ID---: %d\n", getpid());
     Matrix mRes = m1 + m2;
@@ -66,10 +55,11 @@ int main() {
     printf("---ADDER CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
-  waitpid(pid, &status, 0);
+  waitpid(pidAdd, &statusAdd, 0);
 
-  pid2 = fork();
-  if (pid2 == 0) {
+  // Fork to calculate subtraction and write to sub.out
+  pidSub = fork();
+  if (pidSub == 0) {
     int m, n;
     printf("---SUBTRACTOR CHILD ID---: %d\n", getpid());
     Matrix mRes = m1 - m2;
@@ -82,10 +72,11 @@ int main() {
     printf("---SUBTRACTOR CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
-  waitpid(pid2, &status2, 0);
+  waitpid(pidSub, &statusSub, 0);
 
-  pid3 = fork();
-  if (pid3 == 0) {
+  // Fork to calculate multiplication and write to mult.out
+  pidMult = fork();
+  if (pidMult == 0) {
     int m, n;
     printf("---MULTIPLICATOR CHILD ID---: %d\n", getpid());
     Matrix mRes = m1 * m2;
@@ -98,15 +89,15 @@ int main() {
     printf("---MULTIPLICATOR CHILD ENDING---\n");
     exit(EXIT_SUCCESS);
   }
-  waitpid(pid3, &status3, 0);
+  waitpid(pidMult, &statusMult, 0);
 
-  pid = fork();
-  if (pid == 0) {
+  // Fork to read addition, subtraction and multiplication from files and write to add.out
+  pidReader = fork();
+  if (pidReader == 0) {
     char *argv[3] = {NULL};
     execv("reader.out", argv);
   }
-
-  waitpid(pid, &status, 0);
+  waitpid(pidReader, &statusReader, 0);
 
   printf("---PARENT ENDING---\n");
   return 0;

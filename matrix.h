@@ -14,9 +14,8 @@ public:
   Matrix();
   Matrix(int m, int n);
 
-  // static void print_instructions();
-
-  // static void print_example();
+  static void print_instructions();
+  static void print_example();
 
   Matrix operator+(const Matrix &otherMatrix);
   Matrix operator-(const Matrix &otherMatrix);
